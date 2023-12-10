@@ -1,2 +1,2 @@
-# minimal-config
-Configuration files for new Linux/Unix instalations
+# os-config
+Configuration files for new instalations of Windows, Linux or MacOS
