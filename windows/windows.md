@@ -29,7 +29,7 @@ cp -r windows/utils/control_microphone $WHOME/Software # mandatory dest. folder
 # PS
 xcopy windows\utils\control_microphone $HOME\Software # mandatory dest. folder
 ``` 
-> To learn how to set up the `WHOME` var in WSL, go to the [WSL section](#2-wsl).
+> To learn how to set up the `WHOME` var in WSL, go to the [WSL config section](#2-wsl-config).
 
 2. Add the destination folder to Windows' user's path environment variable
     * Open the env. variables panel by following this route: `Win + X` > `System` > `Advanced system settings` > `Environment Variables`
@@ -76,7 +76,7 @@ cp -r windows/utils/password_generator $WHOME/Software # mandatory dest. folder
 # PS
 xcopy windows\utils\password_generator $HOME\Software # mandatory dest. folder
 ```
-> To learn how to set up the `WHOME` var in WSL, go to the [WSL section](#2-wsl).
+> To learn how to set up the `WHOME` var in WSL, go to the [WSL config section](#2-wsl-config).
 
 2. Add the destination folder to Windows' user's path environment variable
     * Open the env. variables panel by following this route: `Win + X` > `System` > `Advanced system settings` > `Environment Variables`
@@ -104,7 +104,7 @@ pwgen.ps1
 ```
 > You can change the features of the password by modifying the attributes in your copy of the `pwgen.py` script.
 
-## WSL config
+## 2. WSL config
 
 The config file in the `wsl` folder is meant to be appended to the .zshrc file of your WSL distribution. That way, the terminal color schema becomes more simple.
 
