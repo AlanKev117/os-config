@@ -49,13 +49,6 @@ then
 fi
 echo "[INFO] Installed omz plugins"
 
-# Set zsh as the default
-if [ "$SHELL" != "/usr/bin/zsh" ]
-then
-    chsh -s $(which zsh)
-fi
-echo "[INFO] Set zsh as the default shell"
-
 # Set static IP address
 gateway=${2:-"192.168.1.254"}
 connection=${3:-"preconfigured"}
@@ -70,4 +63,4 @@ do
     echo -ne "[INFO] System will reboot in ${i} seconds to make all changes effective...\r"
     sleep 1
 done
-sudo reboot
+[ "$SHELL" != "/usr/bin/zsh" ] && (chsh -s $(which zsh) && sudo reboot) || sudo reboot
