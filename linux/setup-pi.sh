@@ -61,9 +61,10 @@ connection=${3:-"preconfigured"}
 sudo nmcli con mod ${connection} ipv4.addresses ${ip_addr}/24 ipv4.method manual
 sudo nmcli con mod ${connection} ipv4.gateway ${gateway}
 sudo nmcli con mod ${connection} ipv4.dns "${gateway},8.8.8.8"
+echo "[INFO] Set static IP to ${ip_addr}, gateway to ${gateway} and dns to ${gateway},8.8.8.8"
 
 # Reboot countdown
-seconds_to_wait=5
+seconds_to_wait=10
 for i in $(seq $seconds_to_wait -1 1)
 do
     echo -ne "[INFO] System will reboot in ${i} seconds to make all changes effective...\r"
