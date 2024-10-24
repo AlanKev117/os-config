@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 ip_addr=$1
 if [ -z "$ip_addr" ]
@@ -30,8 +31,13 @@ then
 else
     git clone --quiet https://github.com/win0err/aphrodite-terminal-theme $target_theme_dir
 fi
-omz theme set aphrodite/aphrodite
-omz reload
+
+theme_loader_line='source ~/.zsh/themes/aphrodite/aphrodite.zsh-theme'
+if ! grep -q ${theme_loader_line} ~/.zshrc
+then
+    echo "${theme_loader_line}" >> ~/.zshrc
+    source ~/.zsh/themes/aphrodite/aphrodite.zsh-theme
+fi
 echo "[INFO] Installed aphrodite theme"
 
 # Install zsh-syntax-highlighting theme
