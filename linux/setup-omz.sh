@@ -23,7 +23,6 @@ else
     git clone --quiet https://github.com/win0err/aphrodite-terminal-theme ${target_theme_dir}
 fi
 omz theme set aphrodite/aphrodite
-omz reload
 echo "[INFO] aphrodite theme installed"
 
 # Install zsh-syntax-highlighting theme
