@@ -1,18 +1,16 @@
 #!/bin/zsh
 
-set -e
-
 # Install Oh-my-zsh
 if [ ! -d "${HOME}/.oh-my-zsh" ]
 then
     yes | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" ""
-    echo "[INFO] Installed Oh-my-zsh"
+    echo "[INFO] Installed Oh-my-zsh and set zsh as default shell"
 else
     echo "[INFO] Oh-my-zsh already installed"
 fi
 
 # Source ~/.zshrc source file to load omz
-source ${HOME}/.zshrc 2> /dev/null
+source ${HOME}/.zshrc
 
 # Install aphrodite theme
 target_theme_dir="${HOME}/.oh-my-zsh/custom/themes/aphrodite"
