@@ -15,8 +15,8 @@ fi
 source ~/.zshrc
 
 # Install aphrodite theme
-target_theme_dir="~/.oh-my-zsh/custom/themes/aphrodite"
-if [ -d "${target_theme_dir}" ] && [ -d "${target_theme_dir}/.git" ]
+target_theme_dir="${HOME}/.oh-my-zsh/custom/themes/aphrodite"
+if [ -d ${target_theme_dir} ] && [ -d ${target_theme_dir}/.git ]
 then
     echo "[INFO] aphrodite repo already cloned in ${target_theme_dir}"
 else
@@ -27,7 +27,7 @@ omz reload
 echo "[INFO] aphrodite theme installed"
 
 # Install zsh-syntax-highlighting theme
-target_plugin_dir="${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+target_plugin_dir="${ZSH_CUSTOM:-"${HOME}/.oh-my-zsh/custom"}/plugins/zsh-syntax-highlighting"
 if [ -d "${target_plugin_dir}" ] && [ -d "${target_plugin_dir}/.git" ]
 then
     echo "[INFO] zsh-syntax-highlighting repo already cloned in ${target_plugin_dir}"
