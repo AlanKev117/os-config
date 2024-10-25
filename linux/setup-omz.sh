@@ -3,7 +3,7 @@
 # Install Oh-my-zsh
 if [ ! -d "${HOME}/.oh-my-zsh" ]
 then
-    yes | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" ""
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     echo "[INFO] Installed Oh-my-zsh and set zsh as default shell"
 else
     echo "[INFO] Oh-my-zsh already installed"
@@ -37,3 +37,5 @@ then
     sed -i '/^plugins=/ s/)/ zsh-syntax-highlighting)/' ${HOME}/.zshrc
 fi
 echo "[INFO] Installed omz plugins"
+
+[ "$(basename -- "$SHELL")" = "zsh" ] || sudo chsh -s $(which zsh)
