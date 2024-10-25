@@ -12,7 +12,7 @@ else
 fi
 
 # Source ~/.zshrc source file to load omz
-source ${HOME}/.zshrc
+source ${HOME}/.zshrc 2> /dev/null
 
 # Install aphrodite theme
 target_theme_dir="${HOME}/.oh-my-zsh/custom/themes/aphrodite"
