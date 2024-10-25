@@ -3,7 +3,7 @@
 set -e
 
 # Install Oh-my-zsh
-if [ -z "${ZSH}" ]
+if [ ! -d "${HOME}/.oh-my-zsh" ]
 then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     echo "[INFO] Installed Oh-my-zsh"
@@ -12,7 +12,7 @@ else
 fi
 
 # Source ~/.zshrc source file to load omz
-source ~/.zshrc
+source ${HOME}/.zshrc
 
 # Install aphrodite theme
 target_theme_dir="${HOME}/.oh-my-zsh/custom/themes/aphrodite"
@@ -34,9 +34,9 @@ else
     git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git ${target_plugin_dir}
 fi
 
-if ! grep -q "zsh-syntax-highlighting" ~/.zshrc
+if ! grep -q "zsh-syntax-highlighting" ${HOME}/.zshrc
 then
-    sed -i '/^plugins=/ s/)/ zsh-syntax-highlighting)/' ~/.zshrc
+    sed -i '/^plugins=/ s/)/ zsh-syntax-highlighting)/' ${HOME}/.zshrc
 fi
 echo "[INFO] Installed omz plugins"
 
