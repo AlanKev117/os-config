@@ -5,7 +5,7 @@ set -e
 # Install Oh-my-zsh
 if [ -z "${ZSH}" ]
 then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     echo "[INFO] Installed Oh-my-zsh"
 else
     echo "[INFO] Oh-my-zsh already installed"
