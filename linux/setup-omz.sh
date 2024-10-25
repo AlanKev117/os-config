@@ -4,7 +4,7 @@
 if [ ! -d "${HOME}/.oh-my-zsh" ]
 then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    echo "[INFO] Installed Oh-my-zsh and set zsh as default shell"
+    echo "[INFO] Installed Oh-my-zsh"
 else
     echo "[INFO] Oh-my-zsh already installed"
 fi
@@ -39,3 +39,4 @@ fi
 echo "[INFO] Installed omz plugins"
 
 [ "$(basename -- "$SHELL")" = "zsh" ] || sudo chsh -s $(which zsh)
+echo "[INFO] Set zsh as default shell"
