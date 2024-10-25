@@ -38,5 +38,5 @@ then
 fi
 echo "[INFO] Installed omz plugins"
 
-[ "$(basename -- "$SHELL")" = "zsh" ] || sudo chsh -s $(which zsh)
+[ "$(basename -- "$SHELL")" = "zsh" ] || chsh -s $(which zsh)
 echo "[INFO] Set zsh as default shell"
