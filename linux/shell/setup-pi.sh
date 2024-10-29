@@ -37,9 +37,9 @@ fi
 echo "[INFO] Set up luks and mount aliases"
 
 # Create samba user and inject samba config
-if ! sudo pdbedit -L | grep -q "${5:-'alan'}"
+if ! sudo pdbedit -L | grep -q "${5:-alan}"
 then
-    (echo "${samba_pw}"; echo "${samba_pw}") | sudo smbpasswd -a -s ${5:-"alan"}
+    (echo "${samba_pw}"; echo "${samba_pw}") | sudo smbpasswd -a -s "${5:-alan}"
 else
     echo "[INFO] User ${5:-"alan"} already in samba db."
 fi
