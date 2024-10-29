@@ -12,7 +12,7 @@ fi
 # Install apt packages
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y zsh curl git-all python3-full vim
+sudo apt install -y zsh curl git-all python3-full vim cryptsetup samba
 echo "[INFO] Installed apt packages"
 
 # Set static IP address
@@ -23,8 +23,17 @@ sudo nmcli con mod ${connection} ipv4.gateway ${gateway}
 sudo nmcli con mod ${connection} ipv4.dns "${gateway},8.8.8.8"
 echo "[INFO] Set static IP to ${ip_addr}, gateway to ${gateway} and dns to ${gateway},8.8.8.8 (effective after reboot)"
 
+# Inject volume aliases to .zshrc
+cat ./volume-tools.sh >> ${HOME}/.zshrc
+echo "Set up luks and mount aliases"
+
+# Inject samba config
+sudo bash -c 'cat ../config/smb.conf >> /etc/samba/smb.conf'
+echo "Set up samba file sharing"
+
 # Finish setup in zsh
 zsh ./setup-omz.sh
+echo "Installed Oh-my-zsh, plugins and theme" 
 
 # Reboot countdown
 seconds_to_wait=10
