@@ -36,13 +36,15 @@ then
 fi
 echo "[INFO] Set up luks and mount aliases"
 
-# Inject samba config
-(echo "${samba_pw}"; echo "${samba_pw}") | sudo smbpasswd -a -s ${5:-"alan"}
+# Create samba user and inject samba config
+if ! sudo pdbedit -L | grep -q "${5:-'alan'}"
+then
+    (echo "${samba_pw}"; echo "${samba_pw}") | sudo smbpasswd -a -s ${5:-"alan"}
+fi
 if ! grep -q "Append to /etc/samba/smb.conf"
 then
     sudo bash -c 'cat ../config/smb.conf >> /etc/samba/smb.conf'
 fi
-sudo systemctl restart smbd
 echo "[INFO] Set up samba file sharing"
 
 # Finish setup in zsh
