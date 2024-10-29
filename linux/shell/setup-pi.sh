@@ -37,7 +37,7 @@ fi
 echo "[INFO] Set up luks and mount aliases"
 
 # Inject samba config
-(echo "${samba_pw}"; echo "${samba_pw}") | smbpasswd -a -s username
+(echo "${samba_pw}"; echo "${samba_pw}") | sudo smbpasswd -a -s ${5:-"alan"}
 if ! grep -q "Append to /etc/samba/smb.conf"
 then
     sudo bash -c 'cat ../config/smb.conf >> /etc/samba/smb.conf'
