@@ -43,7 +43,7 @@ then
 else
     echo "[INFO] User ${5:-"alan"} already in samba db."
 fi
-if ! grep -q "Append to /etc/samba/smb.conf"
+if ! grep -q "Append to /etc/samba/smb.conf" /etc/samba/smb.conf
 then
     sudo bash -c 'cat ../config/smb.conf >> /etc/samba/smb.conf'
 else
