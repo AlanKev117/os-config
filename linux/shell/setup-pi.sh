@@ -45,7 +45,8 @@ else
 fi
 if ! grep -q "Append to /etc/samba/smb.conf" /etc/samba/smb.conf
 then
-    sudo bash -c 'cat ../config/smb.conf >> /etc/samba/smb.conf'
+    cmd="sed 's/{USER}/${5:-alan}/g' linux/config/smb.conf >> /etc/samba/smb.conf"
+    sudo bash -c "${cmd}"
 else
     echo "[INFO] Samba config already loaded."
 fi
