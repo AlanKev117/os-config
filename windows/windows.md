@@ -61,49 +61,6 @@ The AHK script is written so that you can make use of the following key bindings
 
 > You can change this behavior by changing the Key Prefixes in your copy of the `ControlMic.ahk` file.
 
-### 1.2 `password_generator`
-
-This is a small script that can generate a random secure password in a PS terminal.
-
-#### Installation
-
-1. Copy the `password_generator` folder wherever you want.
-
-```bash
-# WSL
-cp -r windows/utils/password_generator $WHOME/Software # mandatory dest. folder
-
-# PS
-xcopy windows\utils\password_generator $HOME\Software # mandatory dest. folder
-```
-> To learn how to set up the `WHOME` var in WSL, go to the [WSL config section](#2-wsl-config).
-
-2. Add the destination folder to Windows' user's path environment variable
-    * Open the env. variables panel by following this route: `Win + X` > `System` > `Advanced system settings` > `Environment Variables`
-    * Click `Path` under _User variables for \<your user\>_ and then click __Edit__
-    * Add a new entry with the destination folder of step one, in this case `$HOME\Software\password_generator`
-
-> Note that the $HOME var could not be resolved, which will require you to manually fill the full destination folder path.
-
-3. Install `random-password-generator` Python library.
-
-```bash
-# Type this in a PS shell
-pip install random-password-generator
-```
-
-4. Restart your machine to make all changes effective.
-
-#### Usage
-
-Open a PowerShell terminal and type:
-
-```bash
-pwgen.ps1
-# 3g9!sdYh5N0ad_2
-```
-> You can change the features of the password by modifying the attributes in your copy of the `pwgen.py` script.
-
 ## 2. WSL config
 
 The config file in the `wsl` folder is meant to be appended to the .zshrc file of your WSL distribution. That way, the terminal color schema becomes more simple.
