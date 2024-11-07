@@ -1,5 +1,5 @@
-
-# Put these lines in the ~/.zshrc file after running linux/shell/setup-omz.sh
+# Put the following content here in your WSL: ~/.zshrc
+# Note: do it after running the linux/shell/setup-omz.sh
 
 # Fixes some anoying colors from the terminal color schema
 export LS_COLORS="${LS_COLORS}ow=0;34:tw=0;34"
