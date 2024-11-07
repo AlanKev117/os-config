@@ -2,10 +2,7 @@
 
 ## Prerequirements
 
-* Install iTerm
-  * Install `zsh` and `Oh-My-Zsh`
-  * Install `aphrodite` osmyzsh theme
-
+Run the `linux/shell/setup-omz.sh` script 
 
 ## UI custom defaults
 You can simply run `custom_ui_defaults.sh` in an iTerm window to tweak and boost some hidden UI settings in Mac OS.

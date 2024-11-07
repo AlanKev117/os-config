@@ -1,67 +1,43 @@
-# Windows assets
+# Windows setup for new installations
 
-## Prerequirements
+## 1. `shell/`
 
-* Enable `WSL` and install a distro for it like `Ubuntu`
-  * Install `zsh` and `Oh-My-Zsh`
-  * Install `aphrodite` osmyzsh theme
-* Install `AutoHotKeys` (AHK) V2
-* Install `SoundVolumeView`
-* Install `ps2exe`
-* Install `Python` (recommended from MS Store)
+Contains software instalation scripts. Enter this folder and then run the following scripts in this order:
 
-## 1. `utils/`
+1. `install_choco.ps1` will install the chocolately package manager`
+1. `install_programs.ps1` will install programs and required software for being able to use the utilities in `utils/`
+1. `create_shortcuts.ps1` will create shortcuts with hotkeys to trigger utilities from `utils/` and also add an extra keybind to turn off your screen by typing `AltGr + B`. 
 
-Here are some utilities like scripts or key bindings for your computer.
+## 2. `utils/`
 
-### 1.1 `control_microphone`
+Contains utilities like scripts and key bindings for your computer.
 
-This is a small utility that consists of a PowerShell script that can be triggered via keyboard shortcuts so you mute or unmute all recording devices in your Windows machine.
+### 2.1. `ControlMic`
 
-#### Installation
+A PowerShell script that mutes/unmutes all the mics in your system.
 
-1. Copy the `control_microphone` folder wherever you want.
-
-```bash
-# WSL
-cp -r windows/utils/control_microphone $WHOME/Software # mandatory dest. folder
-
-# PS
-xcopy windows\utils\control_microphone $HOME\Software # mandatory dest. folder
-``` 
-> To learn how to set up the `WHOME` var in WSL, go to the [WSL config section](#2-wsl-config).
-
-2. Add the destination folder to Windows' user's path environment variable
-    * Open the env. variables panel by following this route: `Win + X` > `System` > `Advanced system settings` > `Environment Variables`
-    * Click `Path` under _User variables for \<your user\>_ and then click __Edit__
-    * Add a new entry with the destination folder of step one, in this case `$HOME\Software\control_microphone`
-
-> Note that the $HOME var could not be resolved, which will require you to manually fill the full destination folder path.
-
-3. Create a shortcut to ControlMic.ahk and put it in the Startup apps folder.
-
-    * Place on the destination folder from step 1, then right click on `ControlMic.ahk` > `Show more options` > `Create shortcut`.
-
-    * You'll have a new shortcut file in the folder. Move it to `$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
-
-4. Make an executable file off the `miccon.ps1` PS script
-    * Place on the destination folder from step 1 in a PowerShell terminal
-    * Type `ps2exe .\miccon.ps1 .\miccon.exe`
-    * You'll have a new executable file in the folder, keep it there.
-
-5. Restart your machine to make all changes effective and to have the AHK script enabled.
+> You need to assign unique names to your recording devices in the Admin Panel or the Settings app for the script to work properly.
 
 #### Usage
 
-The AHK script is written so that you can make use of the following key bindings:
+* `AltGr + M` = Mute mics
+* `AltGr + N` = Unmute mics
 
-* `AltGr` + `F10` to mute all microphones in your machine
-* `AltGr` + `F11` to unmute all microphones in your machine
-* `AltGr` + `F12` to toggle mute state of all microphones in your machine
+> Make sure you have run both scripts in the `shell` folder. 
 
-> You can change this behavior by changing the Key Prefixes in your copy of the `ControlMic.ahk` file.
+### 2.2. `ClickRepeat`
 
-## 2. WSL config
+An AHK v2 script that simulates repeated mouse clicks with a hotkey.
+
+#### Usage
+
+1. Double click the script to activate it
+2. Type `Alt + Shift + C` to simulate many click events
+
+> You can configure the number and speed of the clicks in the `ClickRepeat.ahk` script.
+> Make sure you have run both scripts in the `shell` folder
+
+## 3. `wsl/`
 
 The config file in the `wsl` folder is meant to be appended to the .zshrc file of your WSL distribution. That way, the terminal color schema becomes more simple.
 
