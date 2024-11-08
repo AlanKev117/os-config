@@ -17,6 +17,7 @@ winget install Logitech.GHUB
 winget install Python.Python.3.12
 winget install NirSoft.SoundVolumeView
 winget install flux.flux
+winget install Microsoft.PowerShell
 
 # Install module ps2exe
 Install-Module ps2exe -Force
@@ -41,3 +42,12 @@ Remove-Item $ZipPath
 $downloadLink = "https://github.com/dechamps/laplock/releases/download/laplock-0.2/laplock.exe"
 $startupFolder = "$HOME\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\laplock.exe"
 Invoke-WebRequest -Uri $downloadLink -OutFile $startupFolder
+
+# Compile ControlMic.ps1 as executable
+$ControlMicExeDir = "$HOME\AppData\Local\Programs\ControlMic"
+if (Test-Path -Path $ControlMicExeDir) {
+    Remove-Item -Path $ControlMicExeDir -Recurse -Force
+}
+New-Item -ItemType Directory -Path $ControlMicExeDir -Force
+Invoke-ps2exe -inputFile (Resolve-Path -Path "..\utils\ControlMic\ControlMic.ps1").Path -outputFile "$ControlMicExeDir\ControlMic.exe" -Verbose
+[System.Environment]::SetEnvironmentVariable("Path", "$($env:Path);$ControlMicExeDir", [System.EnvironmentVariableTarget]::User)

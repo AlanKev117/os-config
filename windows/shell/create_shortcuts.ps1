@@ -1,11 +1,6 @@
 # Creates Windows shortcuts with key bindings that perform a specific action.
 
-$shortcutsFolder = "$env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\shortcuts"
-
-if (Test-Path -Path $shortcutsFolder) {
-    Remove-Item -Path $shortcutsFolder -Recurse -Force
-}
-New-Item -ItemType Directory -Path $shortcutsFolder -Force
+$shortcutsFolder = "$env:USERPROFILE\Desktop"
 
 # We define all shortcuts to be created
 $shortcutTurnOffScreen = @{
@@ -17,15 +12,15 @@ $shortcutTurnOffScreen = @{
 
 $shortcutMuteMics = @{
     Path = "$shortcutsFolder\MuteMics.lnk"
-    TargetPath = (Get-Command powershell.exe).Path
-    Arguments = '-File ' + '"' + (Resolve-Path -Path "..\utils\ControlMic\ControlMic.ps1").Path + '"' + " mute"
+    TargetPath = (Get-Command controlmic.exe).Path
+    Arguments = "mute"
     Hotkey = "CTRL+ALT+M"
 }
 
 $shortcutUnmuteMics = @{
     Path = "$shortcutsFolder\UnmuteMics.lnk"
-    TargetPath = (Get-Command powershell.exe).Path
-    Arguments = '-File ' + '"' + (Resolve-Path -Path "..\utils\ControlMic\ControlMic.ps1").Path + '"' + " unmute"
+    TargetPath = (Get-Command controlmic.exe).Path
+    Arguments = "unmute"
     Hotkey = "CTRL+ALT+N"
 }
 
@@ -37,10 +32,17 @@ $shortcuts += $shortcutUnmuteMics
 $ws = New-Object -ComObject WScript.Shell
 
 $shortcuts | ForEach-Object {
+
+    if (Test-Path -Path $_["Path"]) {
+        Remove-Item -Path $_["Path"] -Force
+    }
+
     $shortcut = $ws.CreateShortcut($_["Path"])
     $shortcut.TargetPath = $_["TargetPath"]
     $shortcut.Arguments = $_["Arguments"]
     $shortcut.Hotkey = $_["Hotkey"]
-    $shortcut.WindowStyle = 4 # 7 = min, 4 = normal, 3 = max
+    $shortcut.WindowStyle = 7 # 7 = min, 4 = normal, 3 = max
     $shortcut.Save()
+
+    Set-ItemProperty -Path $_["Path"] -Name Attributes -Value Hidden
 }
