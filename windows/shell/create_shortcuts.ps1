@@ -1,3 +1,7 @@
+# OBSOLETE: For hot key bindings I'm using Microsoft PowerToys.
+# The only purpose of this code is to have a sample snippet to create shortcuts.
+
+
 # Creates Windows shortcuts with key bindings that perform a specific action.
 
 $shortcutsFolder = "$env:USERPROFILE\Desktop"
