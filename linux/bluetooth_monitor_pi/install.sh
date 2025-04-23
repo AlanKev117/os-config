@@ -18,7 +18,15 @@ SERVICE_FILE_NAME="bluetooth-monitor.service"
 echo "Installing dependencies..."
 sudo apt update
 sudo apt upgrade --yes
-sudo apt install python3-full python3-gpiozero --yes
+sudo apt install python3-full python3-gpiozero pigpio --yes
+
+echo "Making sure pigpiod is enabled and active..."
+if ! systemctl is-enabled --quiet pigpiod
+then
+    sudo systemctl enable pigpiod
+    sudo systemctl start pigpiod
+    echo "pigpiod enabled and active!"
+fi
 
 echo "Creating systemd service..."
 sed "s|{SERVICE_DIR}|$(pwd)|" bluetooth-monitor.service.template > ./${SERVICE_FILE_NAME}
