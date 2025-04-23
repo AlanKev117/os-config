@@ -50,4 +50,4 @@ if __name__ == "__main__":
     # Will poll connection status every few seconds
     while True:
         update_led(DEVICE_MAC_ADDRESS)
-        time.sleep(10)
+        time.sleep(5)
