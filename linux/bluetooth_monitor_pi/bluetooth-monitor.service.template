@@ -1,6 +1,7 @@
 [Unit]
 Description=Bluetooth monitor service
-After=multi-user.target
+After=multi-user.target network.target pigpiod.service
+Requires=pigpiod.service
 
 [Service]
 Type=simple
