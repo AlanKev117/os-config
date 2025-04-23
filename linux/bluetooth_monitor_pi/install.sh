@@ -26,7 +26,16 @@ sed -i "s/{GPIO_LED_PIN}/${GPIO_LED_PIN}/" ./${SERVICE_FILE_NAME}
 sed -i "s/{GPIO_BUTTON_PIN}/${GPIO_BUTTON_PIN}/" ./${SERVICE_FILE_NAME}
 sed -i "s/{DEVICE_MAC_ADDRESS}/${DEVICE_MAC_ADDRESS}/" ./${SERVICE_FILE_NAME}
 
-echo "Updating systemd service..."
+echo "Creating/updating systemd service..."
 sudo mv ./${SERVICE_FILE_NAME} /etc/systemd/system/${SERVICE_FILE_NAME}
 sudo systemctl daemon-reload
-sudo systemctl restart ${SERVICE_FILE_NAME}
+
+if systemctl list-units --full -all | grep -Fq "${SERVICE_FILE_NAME}"
+then
+    sudo systemctl restart ${SERVICE_FILE_NAME}
+    echo "Service ${SERVICE_FILE_NAME} udpated!"
+else
+    sudo systemctl enable ${SERVICE_FILE_NAME}
+    sudo systemctl start ${SERVICE_FILE_NAME}
+    echo "Service ${SERVICE_FILE_NAME} created!"
+fi
