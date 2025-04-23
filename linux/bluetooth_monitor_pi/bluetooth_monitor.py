@@ -15,7 +15,7 @@ DEVICE_MAC_ADDRESS = os.environ["DEVICE_MAC_ADDRESS"]
 
 # GPIO objects
 led = LED(GPIO_LED_PIN)
-button = Button(GPIO_BUTTON_PIN, pull_up=False)
+button = Button(GPIO_BUTTON_PIN, pull_up=False, bounce_time=0.5)
 
 def is_connected(device: str) -> bool:
     output = subprocess.check_output(f"bluetoothctl info {device}", shell=True).decode()
@@ -39,7 +39,7 @@ def toggle_connection(device: str) -> None:
 
 if __name__ == "__main__":
     # Add handler to button when pressed.
-    button.when_pressed = lambda: toggle_connection(DEVICE_MAC_ADDRESS)
+    button.when_released = lambda: toggle_connection(DEVICE_MAC_ADDRESS)
 
     # Pause process to be run in the background
     print(f"Watching status of connection to {DEVICE_MAC_ADDRESS} "
