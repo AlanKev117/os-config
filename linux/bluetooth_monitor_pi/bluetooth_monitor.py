@@ -41,6 +41,9 @@ if __name__ == "__main__":
     # Add handler to button when pressed.
     button.when_released = lambda: toggle_connection(DEVICE_MAC_ADDRESS)
 
+    print("Setting connection by default...")
+    set_connection(True, DEVICE_MAC_ADDRESS)
+
     # Pause process to be run in the background
     print(f"Watching status of connection to {DEVICE_MAC_ADDRESS} "
         f"with LED on GPIO pin {GPIO_LED_PIN}. "
