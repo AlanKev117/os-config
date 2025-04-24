@@ -1,56 +1,67 @@
 import os
 import time
 import subprocess
-from gpiozero import LED, Button
+from connection_driver import ConnectionDriver
 
 """
-Controls the connection to a specific Bluetooth device showing the status
-of the connection in an LED and making possible to toggle it with a button.
+Allows the Raspberry Pi to connect to one target Bluetooth device
+with one or two Bluetooth interfaces (an additional BT dongle is required
+for the second one).
+
+The script enables one button and one LED per interface to watch and control
+the status of the connection to the target device.
 """
 
-# GPIO pins
-GPIO_BUTTON_PIN = os.environ["GPIO_BUTTON_PIN"]
-GPIO_LED_PIN = os.environ["GPIO_LED_PIN"]
+# Same target device for either interface to connect to.
 DEVICE_MAC_ADDRESS = os.environ["DEVICE_MAC_ADDRESS"]
 
-# GPIO objects
-led = LED(GPIO_LED_PIN)
-button = Button(GPIO_BUTTON_PIN, pull_up=False, bounce_time=0.5)
+# Interface 1 params
+GPIO_BUTTON1_PIN = os.environ["GPIO_BUTTON1_PIN"]
+GPIO_LED1_PIN = os.environ["GPIO_LED1_PIN"]
 
-def is_connected(device: str) -> bool:
-    output = subprocess.check_output(f"bluetoothctl info {device}", shell=True).decode()
-    return "Connected: yes" in output
+# Interface 2 params (optional)
+GPIO_BUTTON2_PIN = os.getenv("GPIO_BUTTON2_PIN")
+GPIO_LED2_PIN = os.getenv("GPIO_LED2_PIN")
 
-def set_connection(state: bool, device: str) -> None:
-    action = "connect" if state else "disconnect"
-    subprocess.run(f"bluetoothctl {action} {device}", shell=True)
-
-def update_led(device: str) -> None:
-    if is_connected(device):
-        led.on()
-    else:
-        led.off()
-
-def toggle_connection(device: str) -> None:
-    current_state = is_connected(device)
-    set_connection(not current_state, device)
-    time.sleep(0.5)
-    update_led(device)
+def get_adapter_mac_addresses() -> list[str]:
+    output = subprocess.check_output("bluetoothctl list | awk '{print $2}'", shell=True).decode().strip()
+    addresses = output.split("\n")
+    return addresses
 
 if __name__ == "__main__":
-    # Add handler to button when pressed.
-    button.when_released = lambda: toggle_connection(DEVICE_MAC_ADDRESS)
 
-    print("Setting connection by default...")
-    set_connection(True, DEVICE_MAC_ADDRESS)
+    adapters = get_adapter_mac_addresses()[:2] # take at most 2 adapters
 
-    # Pause process to be run in the background
-    print(f"Watching status of connection to {DEVICE_MAC_ADDRESS} "
-        f"with LED on GPIO pin {GPIO_LED_PIN}. "
-        f"Toggle status by pressing button on GPIO pin {GPIO_BUTTON_PIN}. "
-        "CTRL+C to exit.")
+    control_objects = [{"led": GPIO_LED1_PIN, "button": GPIO_BUTTON1_PIN}]
+    if GPIO_LED2_PIN and GPIO_BUTTON2_PIN:
+        control_objects.append({"led": GPIO_LED2_PIN, "button": GPIO_BUTTON2_PIN})
 
-    # Will poll connection status every few seconds
+    # Wanted to control 2 connections but only one adapter is available
+    if len(control_objects) > len(adapters):
+        # We ignore the LED and Button for the second connection
+        control_objects.pop()
+    # There are two adapters available but just need to control 1
+    elif len(control_objects) < len(adapters):
+        # We ignore the second adapter
+        adapters.pop()
+    # There are as many controllers as connections we want to control
+    else:
+        # We assert there is one or two connections to be controlled
+        assert len(control_objects) in (1, 2)
+        assert len(adapters) in (1, 2)
+
+    # We create connection drivers
+    drivers: list[ConnectionDriver] = []
+    for adapter, control_object in zip(adapters, control_objects):
+        led_pin = control_object["led"]
+        button_pin = control_object["button"]
+        driver = ConnectionDriver(led_pin, button_pin, adapter, DEVICE_MAC_ADDRESS)
+        drivers.append(driver)
+
+    # Will poll connection(s) every few seconds
     while True:
-        update_led(DEVICE_MAC_ADDRESS)
-        time.sleep(5)
+
+        for driver in drivers:
+            driver.update_led()
+
+        time.sleep(2)

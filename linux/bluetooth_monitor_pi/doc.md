@@ -11,17 +11,17 @@ I realised then that I could use my Raspberry Pi to occupy the unused slot so th
 
 But if I don't have a device connected that plays sound, that still leaves an empty slot for an intruder to hijack, right?
 
-Well, that's why I created this piece of software, so that I can have a second on-demand device whose connection to my speakers I can monitor and control.
+Well, that's why I created this piece of software, so that I can have either one or two on-demand devices whose connection to my speakers I can monitor and control.
 
 ## How it works
 
-- There's an LED that shows the status of the connection to the speakers
-- There's a button that toggles the connection to the speakers
+- There's one or two LEDs that show the status of the connection(s) to the speakers
+- There's one or two buttons that toggle the connection(s) to the speakers
 
 ## Installation
 
 ```bash
 # Arguments are optional, but if specified, 
-# they should be passed in the following order
-bash install.sh [GPIO_LED_PIN] [GPIO_BUTTON_PIN] [SPEAKERS_MAC_ADDRESS]
+# they should be passed as follows
+bash install.sh <SPEAKERS_MAC_ADDRESS> <GPIO_LED1_PIN> <GPIO_BUTTON1_PIN> <GPIO_LED2_PIN> <GPIO_BUTTON2_PIN>
 ```
