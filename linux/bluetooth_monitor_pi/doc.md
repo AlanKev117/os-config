@@ -23,5 +23,5 @@ Well, that's why I created this piece of software, so that I can have either one
 ```bash
 # Arguments are optional, but if specified, 
 # they should be passed as follows
-bash install.sh [[<SPEAKERS_MAC_ADDRESS>] [<GPIO_LED1_PIN> <GPIO_BUTTON1_PIN> [[GPIO_LED2_PIN] [GPIO_BUTTON2_PIN]]]]
+bash install.sh <SPEAKERS_MAC_ADDRESS> <GPIO_LED1_PIN> <GPIO_BUTTON1_PIN> <GPIO_LED2_PIN> <GPIO_BUTTON2_PIN>
 ```
