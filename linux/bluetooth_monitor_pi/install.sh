@@ -26,7 +26,7 @@ sudo apt upgrade --yes
 sudo apt install python3-full python3-dev python3-gpiozero  --yes
 
 echo "Creating systemd service..."
-sed "s|{SERVICE_DIR}|$(pwd)|g" bluetooth-monitor.service.template > ./${SERVICE_FILE_NAME}
+sed "s|{SERVICE_DIR}|$(pwd)|" bluetooth-monitor.service.template > ./${SERVICE_FILE_NAME}
 sed -i "s/{DEVICE_MAC_ADDRESS}/${DEVICE_MAC_ADDRESS}/" ./${SERVICE_FILE_NAME}
 sed -i "s/{GPIO_LED1_PIN}/${GPIO_LED1_PIN}/" ./${SERVICE_FILE_NAME}
 sed -i "s/{GPIO_BUTTON1_PIN}/${GPIO_BUTTON1_PIN}/" ./${SERVICE_FILE_NAME}

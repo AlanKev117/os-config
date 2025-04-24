@@ -10,9 +10,9 @@ Environment=GPIO_BUTTON1_PIN={GPIO_BUTTON1_PIN}
 Environment=GPIO_LED2_PIN={GPIO_LED2_PIN}
 Environment=GPIO_BUTTON2_PIN={GPIO_BUTTON2_PIN}
 Environment=DEVICE_MAC_ADDRESS={DEVICE_MAC_ADDRESS}
-ExecStart={SERVICE_DIR}/env/bin/python3 {SERVICE_DIR}/bluetooth_monitor.py
+ExecStart=/usr/bin/python3 {SERVICE_DIR}/bluetooth_monitor.py
 Restart=on-failure
-User=alan
+User=root
 
 [Install]
 WantedBy=multi-user.target
