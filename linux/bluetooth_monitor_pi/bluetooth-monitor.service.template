@@ -5,12 +5,14 @@ After=multi-user.target
 [Service]
 Type=simple
 Environment=GPIOZERO_PIN_FACTORY=lgpio
-Environment=GPIO_LED_PIN={GPIO_LED_PIN}
-Environment=GPIO_BUTTON_PIN={GPIO_BUTTON_PIN}
+Environment=GPIO_LED1_PIN={GPIO_LED1_PIN}
+Environment=GPIO_BUTTON1_PIN={GPIO_BUTTON1_PIN}
+Environment=GPIO_LED2_PIN={GPIO_LED2_PIN}
+Environment=GPIO_BUTTON2_PIN={GPIO_BUTTON2_PIN}
 Environment=DEVICE_MAC_ADDRESS={DEVICE_MAC_ADDRESS}
-ExecStart=/usr/bin/python3 {SERVICE_DIR}/bluetooth_monitor.py
+ExecStart={SERVICE_DIR}/env/bin/python3 {SERVICE_DIR}/bluetooth_monitor.py
 Restart=on-failure
-User=root
+User=alan
 
 [Install]
 WantedBy=multi-user.target
