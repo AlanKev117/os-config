@@ -43,7 +43,7 @@ class ConnectionDriver:
             {action} {self.device_mac}
             exit
         """
-        subprocess.run(["bluetoothctl"], input=args.strip())
+        subprocess.run(["bluetoothctl"], input=args.strip(), text=True)
 
     def update_led(self):
         current_status = self.is_connected()
