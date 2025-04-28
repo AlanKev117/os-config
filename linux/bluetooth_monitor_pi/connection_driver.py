@@ -22,6 +22,8 @@ class ConnectionDriver:
         formatter = logging.Formatter('[%(levelname)s] [%(asctime)s] [%(name)s] - %(message)s')
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
+
+        self.latest_status = self.is_connected()
     
     def is_connected(self) -> bool:
         cmd = f"""
