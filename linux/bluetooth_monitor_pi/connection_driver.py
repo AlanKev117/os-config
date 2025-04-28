@@ -38,14 +38,12 @@ class ConnectionDriver:
 
     def set_connection(self, active: bool) -> bool:
         action = "connect" if active else "disconnect"
-        cmd = f"""
-            bluetoothctl << EOF
+        args = f"""
             select {self.adapter_mac}
             {action} {self.device_mac}
             exit
-            EOF
         """
-        subprocess.run(cmd, shell=True)
+        subprocess.run(["bluetoothctl"], input=args.strip())
 
     def update_led(self):
         current_status = self.is_connected()
