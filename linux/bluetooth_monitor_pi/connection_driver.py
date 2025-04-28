@@ -19,7 +19,7 @@ class ConnectionDriver:
         self.logger.setLevel(logging.INFO)
         handler = logging.StreamHandler()
         handler.setLevel(logging.INFO)
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter('[%(levelname)s] [%(asctime)s] [%(name)s] - %(message)s')
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
     
@@ -33,8 +33,8 @@ class ConnectionDriver:
         """
         output = subprocess.check_output(cmd, shell=True).decode()
         return "Connected: yes" in output
-    
-    def set_connection(self, active: bool):
+
+    def set_connection(self, active: bool) -> bool:
         action = "connect" if active else "disconnect"
         cmd = f"""
             bluetoothctl << EOF
@@ -44,18 +44,27 @@ class ConnectionDriver:
             EOF
         """
         output = subprocess.check_output(cmd, shell=True).decode()
-        if "Failed to connect" in output:
-            raise Exception(f"Could not connect to device {self.device_mac} with adapter {self.adapter_mac}")
+        expected_message = "Connection successful" if active else "Successful disconnected"
+        return expected_message in output
 
     def update_led(self):
-        if self.is_connected():
+        current_status = self.is_connected()
+        if current_status == self.latest_status:
+            # Don't do anyting if the latest status hasn't changed
+            return
+
+        if current_status == True:
             self.led.on()
             self.logger.info(f"Connected to {self.device_mac}")
         else:
             self.led.off()
             self.logger.info(f"Disconnected from {self.device_mac}")
 
+        self.latest_status = current_status
+
     def toggle_connection(self):
         current_state = self.is_connected()
-        self.set_connection(not current_state)
+        succeeded = self.set_connection(not current_state)
+        if not succeeded:
+            self.logger.error("Failed to switch status of connection.")
         self.update_led()
