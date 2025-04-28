@@ -26,24 +26,24 @@ class ConnectionDriver:
         self.latest_status = self.is_connected()
     
     def is_connected(self) -> bool:
-        cmd = f"""
-            bluetoothctl << EOF
+        input = f"""
             select {self.adapter_mac}
             info {self.device_mac}
             exit
-            EOF
-        """
-        output = subprocess.check_output(cmd, shell=True).decode()
+        """.strip()
+
+        output = subprocess.check_output(["bluetoothctl"], input=input, text=True)
         return "Connected: yes" in output
 
     def set_connection(self, active: bool) -> bool:
         action = "connect" if active else "disconnect"
-        args = f"""
+        input = f"""
             select {self.adapter_mac}
             {action} {self.device_mac}
             exit
-        """
-        subprocess.run(["bluetoothctl"], input=args.strip(), text=True)
+        """.strip()
+        subprocess.run(["bluetoothctl"], input=input, text=True)
+        time.sleep(5)
 
     def update_led(self):
         current_status = self.is_connected()
