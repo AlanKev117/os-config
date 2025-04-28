@@ -41,10 +41,10 @@ class ConnectionDriver:
     def update_led(self):
         if self.is_connected():
             self.led.on()
-            self.logger(f"Connected to {self.device_mac}")
+            self.logger.info(f"Connected to {self.device_mac}")
         else:
             self.led.off()
-            self.logger(f"Disconnected from {self.device_mac}")
+            self.logger.info(f"Disconnected from {self.device_mac}")
 
     def toggle_connection(self):
         current_state = self.is_connected()
