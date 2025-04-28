@@ -42,7 +42,7 @@ class ConnectionDriver:
             {action} {self.device_mac}
             exit
         """.strip()
-        subprocess.run(["bluetoothctl"], input=input, text=True)
+        subprocess.run(["bluetoothctl"], input=input, text=True, capture_output=True)
         time.sleep(5)
 
     def update_led(self):
