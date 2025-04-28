@@ -7,7 +7,7 @@ from gpiozero import LED, Button
 class ConnectionDriver:
     def __init__(self, led_pin: int | str, button_pin: int | str, adapter_mac: str, device_mac: str):
         self.led = LED(led_pin)
-        self.button = Button(button_pin, pull_up=False, bounce_time=0.3)
+        self.button = Button(button_pin, pull_up=False, bounce_time=0.1)
         self.adapter_mac = adapter_mac
         self.device_mac = device_mac
         self.button.when_released = self.toggle_connection
