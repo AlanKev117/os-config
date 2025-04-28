@@ -1,4 +1,5 @@
 import time
+import logging
 import subprocess
 
 from gpiozero import LED, Button
@@ -10,6 +11,8 @@ class ConnectionDriver:
         self.adapter_mac = adapter_mac
         self.device_mac = device_mac
         self.button.when_released = self.toggle_connection
+        self.logger = logging.getLogger(f"logger_l-{led_pin}_b-{button_pin}")
+        self.logger.setLevel(logging.INFO)
     
     def is_connected(self) -> bool:
         cmd = f"""
@@ -38,8 +41,10 @@ class ConnectionDriver:
     def update_led(self):
         if self.is_connected():
             self.led.on()
+            self.logger(f"Connected to {self.device_mac}")
         else:
             self.led.off()
+            self.logger(f"Disconnected from {self.device_mac}")
 
     def toggle_connection(self):
         current_state = self.is_connected()
