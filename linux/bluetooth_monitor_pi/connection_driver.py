@@ -31,7 +31,9 @@ class ConnectionDriver:
             exit
             EOF
         """
-        subprocess.run(cmd, shell=True)
+        output = subprocess.check_output(cmd, shell=True).decode()
+        if "Failed to connect" in output:
+            raise Exception(f"Could not connect to device {self.device_mac} with adapter {self.adapter_mac}")
 
     def update_led(self):
         if self.is_connected():
@@ -42,5 +44,4 @@ class ConnectionDriver:
     def toggle_connection(self):
         current_state = self.is_connected()
         self.set_connection(not current_state)
-        time.sleep(0.5)
         self.update_led()
