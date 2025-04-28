@@ -45,9 +45,7 @@ class ConnectionDriver:
             exit
             EOF
         """
-        output = subprocess.check_output(cmd, shell=True).decode()
-        expected_message = "Connection successful" if active else "Successful disconnected"
-        return expected_message in output
+        subprocess.run(cmd, shell=True)
 
     def update_led(self):
         current_status = self.is_connected()
@@ -65,8 +63,9 @@ class ConnectionDriver:
         self.latest_status = current_status
 
     def toggle_connection(self):
-        current_state = self.is_connected()
-        succeeded = self.set_connection(not current_state)
-        if not succeeded:
+        previous_state = self.is_connected()
+        self.set_connection(not previous_state)
+        new_state = self.is_connected()
+        if previous_state == new_state:
             self.logger.error("Failed to switch status of connection.")
         self.update_led()
