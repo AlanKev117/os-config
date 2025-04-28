@@ -6,13 +6,22 @@ from gpiozero import LED, Button
 
 class ConnectionDriver:
     def __init__(self, led_pin: int | str, button_pin: int | str, adapter_mac: str, device_mac: str):
+
+        # Herdware setup
         self.led = LED(led_pin)
         self.button = Button(button_pin, pull_up=False, bounce_time=0.1)
         self.adapter_mac = adapter_mac
         self.device_mac = device_mac
         self.button.when_released = self.toggle_connection
+
+        # Logger setup
         self.logger = logging.getLogger(f"logger_l-{led_pin}_b-{button_pin}")
         self.logger.setLevel(logging.INFO)
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
     
     def is_connected(self) -> bool:
         cmd = f"""
