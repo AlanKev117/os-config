@@ -16,12 +16,12 @@ Well, that's why I created this piece of software, so that I can have either one
 ## How it works
 
 - There's one or two LEDs that show the status of the connection(s) to the speakers
-- There's one or two buttons that toggle the connection(s) to the speakers
+- The connection(s) can be controlled by key sequences of 'control' and 'FN' keys.
 
 ## Installation
 
 ```bash
 # Arguments are optional, but if specified, 
 # they should be passed as follows
-bash install.sh <SPEAKERS_MAC_ADDRESS> <GPIO_LED1_PIN> <GPIO_BUTTON1_PIN> <GPIO_LED2_PIN> <GPIO_BUTTON2_PIN>
+bash install.sh <SPEAKERS_MAC_ADDRESS> <GPIO_LED1_PIN> <JSON_ARRAY_CON1_KEY_SEQ> <GPIO_LED2_PIN> <JSON_ARRAY_CON1_KEY_SEQ>
 ```
