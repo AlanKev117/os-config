@@ -51,7 +51,10 @@ class ConnectionDriver:
         connection_status = self.is_connected()
         led_status = self.led.is_lit
         if connection_status != led_status:
-            self.led.on() if connection_status else self.led.off()
+            if connection_status:
+                self.led.on()
+            else:
+                self.led.off()
             self.logger.info("Connection is currently " + ("on" if connection_status else "off"))
 
     def toggle_connection(self):
@@ -65,3 +68,5 @@ class ConnectionDriver:
                 break
             time.sleep(0.5)
             backoff_tries -= 1
+        else:
+            self.logger.info(f"Successfully toggled connection!")
