@@ -45,14 +45,14 @@ class ConnectionDriver:
         """.strip()
         subprocess.run(["bluetoothctl"], input=input, text=True, capture_output=True)
         time.sleep(5)
-        self.logger.info("Tried to set connection " + "on" if active else "off")
+        self.logger.info("Tried to set connection " + ("on" if active else "off"))
 
     def update_led(self):
         connection_status = self.is_connected()
         led_status = self.led.is_lit
         if connection_status != led_status:
             self.led.on() if connection_status else self.led.off()
-        self.logger.info("Connection is currently " + "on" if connection_status else "off")
+            self.logger.info("Connection is currently " + ("on" if connection_status else "off"))
 
     def toggle_connection(self):
         previous_state = self.is_connected()
