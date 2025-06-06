@@ -1,2 +1,2 @@
-pynput==1.8.1
+keyboard==0.13.5
 gpiozero==2.0.1

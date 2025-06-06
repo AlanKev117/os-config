@@ -10,10 +10,10 @@ set -e
 DEVICE_MAC_ADDRESS=$1 # MAC address of target device to control
 
 GPIO_LED1_PIN=${2:-17} # To show status of connection from interface 1
-CON1_KEY_SEQ=${3:-'["shift", "f5"]'} # To control status of connection from interface 1
+CON1_KEY_SEQ=${3:-'shift+f5'} # To control status of connection from interface 1
 
 GPIO_LED2_PIN=${4:-27} # To show status of connection from interface 2
-CON2_KEY_SEQ=${5:-'["shift", "f6"]'} # To control status of connection from interface 2
+CON2_KEY_SEQ=${5:-'shift+f6'} # To control status of connection from interface 2
 
 # If no MAC address is provided, we take the one from the first paired device
 [ -z "${DEVICE_MAC_ADDRESS}" ] && DEVICE_MAC_ADDRESS=$(bluetoothctl devices Paired | head -1 | awk '{print $2}')

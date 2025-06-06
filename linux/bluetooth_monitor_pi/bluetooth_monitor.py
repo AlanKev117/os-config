@@ -55,14 +55,12 @@ if __name__ == "__main__":
     drivers: list[ConnectionDriver] = []
     for adapter, control_object in zip(adapters, control_objects):
         led_pin = control_object["led"]
-        sequence = json.loads(control_object["sequence"])
+        sequence = control_object["sequence"]
         driver = ConnectionDriver(led_pin, sequence, adapter, DEVICE_MAC_ADDRESS)
         drivers.append(driver)
 
     # Will poll connection(s) every few seconds
     while True:
-
         for driver in drivers:
             driver.update_led()
-
         time.sleep(2)
