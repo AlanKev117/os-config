@@ -16,7 +16,7 @@ GPIO_LED2_PIN=${4:-27} # To show status of connection from interface 2
 CON2_KEY_SEQ=${5:-'shift+f6'} # To control status of connection from interface 2
 
 # If no MAC address is provided, we take the one from the first paired device
-[ -z "${DEVICE_MAC_ADDRESS}" ] && DEVICE_MAC_ADDRESS=$(bluetoothctl devices Paired | head -1 | awk '{print $2}') || echo "Device's MAC address passed through CLI arguments"
+[ -z "${DEVICE_MAC_ADDRESS}" ] && DEVICE_MAC_ADDRESS=$(bluetoothctl devices Paired | head -1 | awk '{print $2}') || echo "Device's MAC address passed through CLI arguments..."
 
 SERVICE_FILE_NAME="bluetooth-monitor.service"
 
@@ -34,6 +34,7 @@ else
     python3 -m venv ${ENV_DIR}
     source ${ENV_DIR}/bin/activate
     pip3 install -r requirements.txt
+fi
 
 echo "Creating systemd service..."
 sed "s|{SERVICE_DIR}|${SERVICE_DIR}|g" bluetooth-monitor.service.template > ./${SERVICE_FILE_NAME}
