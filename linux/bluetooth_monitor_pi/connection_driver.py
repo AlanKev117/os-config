@@ -49,7 +49,7 @@ class ConnectionDriver:
 
     def update_led(self):
         connection_status = self.is_connected()
-        led_status = self.led.is_active()
+        led_status = self.led.is_lit
         if connection_status != led_status:
             self.led.on() if connection_status else self.led.off()
         self.logger.info("Connection is currently " + "on" if connection_status else "off")
