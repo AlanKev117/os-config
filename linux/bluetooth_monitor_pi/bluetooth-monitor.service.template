@@ -8,7 +8,7 @@ Environment=GPIOZERO_PIN_FACTORY=lgpio
 Environment=GPIO_LED1_PIN={GPIO_LED1_PIN}
 Environment=CON1_KEY_SEQ={CON1_KEY_SEQ}
 Environment=GPIO_LED2_PIN={GPIO_LED2_PIN}
-Environment=CON2_KEY_SEQ={CON1_KEY_SEQ}
+Environment=CON2_KEY_SEQ={CON2_KEY_SEQ}
 Environment=DEVICE_MAC_ADDRESS={DEVICE_MAC_ADDRESS}
 ExecStart={SERVICE_DIR}/{ENV_DIR}/bin/python3 {SERVICE_DIR}/bluetooth_monitor.py
 Restart=on-failure
