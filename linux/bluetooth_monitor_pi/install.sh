@@ -3,7 +3,7 @@
 set -e
 
 # Installs/updates the systemd service that runs the Bluetooth monitor
-# IMPORTANT: run this script inside its folder, `bluetooth_monitor_py/`.
+# IMPORTANT: run this script inside its folder, `bluetooth_monitor_pi/`.
 
 # Optional command line args:
 
