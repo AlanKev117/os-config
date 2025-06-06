@@ -16,7 +16,7 @@ class ConnectionDriver:
         keyboard.add_hotkey(key_sequence, self.toggle_connection)
 
         # Logger setup
-        self.logger = logging.getLogger(f"logger_l-{led_pin}")
+        self.logger = logging.getLogger(f"logger_l-{led_pin}_s-{key_sequence}")
         self.logger.setLevel(logging.INFO)
         handler = logging.StreamHandler()
         handler.setLevel(logging.INFO)
@@ -45,7 +45,6 @@ class ConnectionDriver:
         """.strip()
         subprocess.run(["bluetoothctl"], input=input, text=True, capture_output=True)
         time.sleep(5)
-        self.logger.info("Tried to set connection " + ("on" if active else "off"))
 
     def update_led(self):
         connection_status = self.is_connected()
