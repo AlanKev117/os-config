@@ -21,7 +21,7 @@ fi
 echo "Creating systemd service..."
 sed "s|{SERVICE_DIR}|${SERVICE_DIR}|g" ${SERVICE_FILE_NAME}.template > ./${SERVICE_FILE_NAME}
 sed -i "s|{ENV_DIR}|${ENV_DIR}|" ./${SERVICE_FILE_NAME}
-sed -i "s|{PORT}|${INTERNAL_PORT}" ./${SERVICE_FILE_NAME}
+sed -i "s|{PORT}|${INTERNAL_PORT}|" ./${SERVICE_FILE_NAME}
 
 echo "Creating/updating systemd service..."
 sudo mv ./${SERVICE_FILE_NAME} /etc/systemd/system/${SERVICE_FILE_NAME}
