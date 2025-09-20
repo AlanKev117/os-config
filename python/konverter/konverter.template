@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name www.konverter.local.net;
+
+    location / {
+        proxy_pass http://localhost:{PORT};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
