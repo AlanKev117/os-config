@@ -40,7 +40,13 @@ fi
 echo "Generating NGINX service..."
 sed "s|{PORT}|${INTERNAL_PORT}|g" ${NGINX_SERVICE_FILE}.template > ./${NGINX_SERVICE_FILE}
 sudo mv ./${NGINX_SERVICE_FILE} /etc/nginx/sites-available/${NGINX_SERVICE_FILE}
-sudo ln -s /etc/nginx/sites-available/${NGINX_SERVICE_FILE} /etc/nginx/sites-enabled/
+if [ -L "/etc/nginx/sites-enabled/${NGINX_SERVICE_FILE}" ]
+then
+    echo "Symbolic link to NGINX service exists!"
+else
+    echo "Symbolic link to NGINX service created!"
+    sudo ln -s /etc/nginx/sites-available/${NGINX_SERVICE_FILE} /etc/nginx/sites-enabled/
+fi
 
 echo "Starting/restarting NGINX service..."
 sudo nginx -t
