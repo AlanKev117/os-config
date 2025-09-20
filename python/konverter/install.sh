@@ -2,6 +2,7 @@
 
 set -e
 
+TAILSCALE_HOST=$1
 SERVICE_DIR=$(pwd)
 ENV_DIR=env
 SERVICE_FILE_NAME=konverter.service
@@ -39,6 +40,7 @@ fi
 
 echo "Generating NGINX service..."
 sed "s|{PORT}|${INTERNAL_PORT}|g" ${NGINX_SERVICE_FILE}.template > ./${NGINX_SERVICE_FILE}
+sed -i "s|{TAILSCALE_HOST}|${TAILSCALE_HOST}|" ./${NGINX_SERVICE_FILE}
 sudo mv ./${NGINX_SERVICE_FILE} /etc/nginx/sites-available/${NGINX_SERVICE_FILE}
 if [ -L "/etc/nginx/sites-enabled/${NGINX_SERVICE_FILE}" ]
 then
