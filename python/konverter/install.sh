@@ -39,7 +39,7 @@ fi
 
 echo "Generating NGINX service..."
 sed "s|{PORT}|${INTERNAL_PORT}|g" ${NGINX_SERVICE_FILE}.template > ./${NGINX_SERVICE_FILE}
-sudo mv ./${SERVICE_FILE_NAME} /etc/nginx/sites-available/${SERVICE_FILE_NAME}
+sudo mv ./${NGINX_SERVICE_FILE} /etc/nginx/sites-available/${NGINX_SERVICE_FILE}
 sudo ln -s /etc/nginx/sites-available/${NGINX_SERVICE_FILE} /etc/nginx/sites-enabled/
 
 echo "Starting/restarting NGINX service..."
