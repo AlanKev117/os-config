@@ -2,7 +2,7 @@ server {
     listen 80;
     server_name {TAILSCALE_HOST};
 
-    location /konverter {
+    location /konverter/ {
         proxy_pass http://localhost:{PORT}/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
