@@ -1,0 +1,14 @@
+[Unit]
+Description=Konverter service
+After=multi-user.target
+
+[Service]
+Type=simple
+
+ExecStart={SERVICE_DIR}/{ENV_DIR}/bin/uvicorn main:app --host 0.0.0.0 --port {PORT} --root-path /konverter
+WorkingDirectory={SERVICE_DIR}
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
