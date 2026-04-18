@@ -1,0 +1,17 @@
+# It's a good idea to install the following software as you set up the Pi
+
+# Samba
+sudo apt install samba -y
+
+# ZeroTier
+curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/main/doc/contact%40zerotier.com.gpg' | gpg --import && \
+if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
+
+# Git
+sudo apt install git-all -y
+
+# Python
+sudo apt install python-full -y
+
+# Vim
+sudo apt install vim -y

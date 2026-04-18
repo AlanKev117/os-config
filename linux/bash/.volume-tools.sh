@@ -1,5 +1,4 @@
-
-# luks aliases
+# Functions to mount regular and encrypted volumes
 
 lopen() {
   DEV_PARTITION=$1

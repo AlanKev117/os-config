@@ -1,0 +1,17 @@
+# Show all completion options on a single TAB press (instead of double-TAB)
+set show-all-if-ambiguous on
+
+# Add colors to completion lists
+set colored-stats on
+
+set completion-ignore-case on
+
+# Make the first TAB press complete as much as possible,
+# and the second TAB press show the list
+set menu-complete-display-prefix on
+
+# Make TAB cycle forward through the completion menu
+"\t": menu-complete
+
+# Make Shift-TAB cycle backward through the completion menu
+"\e[Z": menu-complete-backward
