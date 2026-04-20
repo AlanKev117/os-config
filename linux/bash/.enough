@@ -7,13 +7,13 @@ third_party_files_to_source=(
 # Source each third party file if exists
 for f in "${third_party_files_to_source[@]}"
 do
-  [ -f "$f" ] && source "$f"
+  [ -f "$f" ] && . "$f"
 done
 
 # Source each file in enough config dir if exists
 for f in $CONFIG_ENOUGH_DIR/*
 do
-  [ -f "$f" ] && source "$f"
+  [ -f "$f" ] && . "$f"
 done
 
 # ====== Bare config ========

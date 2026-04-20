@@ -1,1 +1,1 @@
-[ -f "$HOME/.enough" ] && source "$HOME/.enough"
+[ -f "$HOME/.enough" ] && . "$HOME/.enough"
