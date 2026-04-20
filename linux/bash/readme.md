@@ -1,7 +1,7 @@
 # Bash config instructions
 
-1. Run `sudo apt update && sudo apt upgrade`.
-1. Install `git` and `vim`: `sudo apt install git-all vim -y`.
-1. Copy all files that start with `.` but `.bashrc` to your `$HOME` directory.
-1. Append content from this repository `.bashrc` to your machine's `$HOME/.bashrc`.
+> Warning: all content from .inputrc will be overriden every time you execute the `apply.sh` script.
+
+1. Run `bash setup.sh`
+1. Run `bash apply.sh`
 1. Restart your shell or reboot.

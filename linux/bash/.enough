@@ -1,0 +1,23 @@
+CONFIG_ENOUGH_DIR="$HOME/.config/enough"
+
+third_party_files_to_source=(
+  "/usr/share/bash-completion/completions/git"
+)
+
+# Source each third party file if exists
+for f in "${third_party_files_to_source[@]}"
+do
+  [ -f "$f" ] && source "$f"
+done
+
+# Source each file in enough config dir if exists
+for f in $CONFIG_ENOUGH_DIR/*
+do
+  [ -f "$f" ] && source "$f"
+done
+
+# ====== Bare config ========
+
+# Set vim as default terminal editor
+export VISUAL=vim
+export EDITOR=vim
