@@ -21,3 +21,9 @@ done
 # Set vim as default terminal editor
 export VISUAL=vim
 export EDITOR=vim
+
+# Enables ** to match files in subdirectories
+shopt -s globstar
+
+# Enables explansion of wildcards in the command line
+shopt -s direxpand

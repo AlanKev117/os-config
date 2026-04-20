@@ -4,6 +4,7 @@ set show-all-if-ambiguous on
 # Add colors to completion lists
 set colored-stats on
 
+# Enable auto-complete ignoring case
 set completion-ignore-case on
 
 # Make the first TAB press complete as much as possible,
