@@ -8,7 +8,7 @@ set-static-dhcp () {
     sudo nmcli connection modify ${CONNECTION} ipv4.addresses ${ADDRESS}
     sudo nmcli connection modify ${CONNECTION} ipv4.dns "${DNS}"
     sudo nmcli connection modify ${CONNECTION} ipv4.gateway ${GATEWAY}
-    sudo nmcli connection modify ${CONNECTION} ipv4.method 
+    sudo nmcli connection modify ${CONNECTION} ipv4.method manual
 
     echo "Successfully configured static DHCP for connection ${CONNECTION}!"
     echo "Reboot to make the changes effective."
