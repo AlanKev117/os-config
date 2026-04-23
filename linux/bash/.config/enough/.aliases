@@ -1,5 +1,7 @@
-alias ll='ls -l'
-alias la='ls -lA'
+LS_COMMAND=$([[ "$OSTYPE" == "darwin"* ]] && echo -n "gls" || echo -n "ls")
+alias ls="$LS_COMMAND --color=auto"
+alias ll="$LS_COMMAND --color=auto --group-directories-first -l"
+alias la="$LS_COMMAND --color=auto --group-directories-first -lA"
 alias c='clear'
 alias h='history'
 alias seba='source ./env/bin/activate'
