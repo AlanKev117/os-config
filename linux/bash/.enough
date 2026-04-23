@@ -27,3 +27,6 @@ shopt -s globstar
 
 # Enables explansion of wildcards in the command line
 shopt -s direxpand
+
+# Enables direnv
+eval "$(direnv hook bash)"
