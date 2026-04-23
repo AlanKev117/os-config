@@ -2,6 +2,7 @@ CONFIG_ENOUGH_DIR="$HOME/.config/enough"
 
 third_party_files_to_source=(
   "/usr/share/bash-completion/completions/git"
+  "/usr/local/etc/bash_completion.d/git-completion.bash"
 )
 
 # Source each third party file if exists

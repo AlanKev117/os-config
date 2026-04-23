@@ -11,6 +11,9 @@ set completion-ignore-case on
 # and the second TAB press show the list
 set menu-complete-display-prefix on
 
+# Prevent pasted commands from executing even if they include new lines
+set enable-bracketed-paste on
+
 # Make TAB cycle forward through the completion menu
 "\t": menu-complete
 

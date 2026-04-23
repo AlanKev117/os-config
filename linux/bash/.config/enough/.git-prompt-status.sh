@@ -11,13 +11,13 @@ parse_git_status() {
 
     # 2. Check for staged changes (Index)
     if ! git diff --cached --quiet 2>/dev/null; then
-        status_color="\033[01;33m" # Yellow if changes are staged
+        status_color="\033[38;5;208m" # Orange if changes are staged
         marks="${marks}+"
     fi
 
     # 3. Check for unstaged changes (Working Tree)
     if ! git diff --quiet 2>/dev/null; then
-        status_color="\033[01;31m" # Red if files are modified but not staged
+        status_color="\033[01;33m" # Yellow if files are modified but not staged
         marks="${marks}*"
     fi
 
@@ -33,9 +33,14 @@ parse_git_status() {
 
     # Using \001 and \002 as wrappers tells Bash these are non-printing characters.
     # This prevents the literal "\[\]" bug and fixes line-wrapping issues.
-    echo -ne " \001${status_color}\002(${branch}${marks})\001\033[00m\002"
+    if [ "${NO_MARKS}" == "true" ]
+    then
+        echo -ne " \001${status_color}\002\u27e8${branch}\u27e9\001\033[00m\002"
+    else
+        echo -ne " \001${status_color}\002\u27e8${branch}${marks}\u27e9\001\033[00m\002"
+    fi
 }
 
 # PS1 Configuration
 # \u = username, \h = hostname, \w = working directory
-export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(parse_git_status)\$ "
+export PS1="\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(parse_git_status)\n\$ "
